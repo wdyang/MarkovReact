@@ -23,15 +23,22 @@ var path = {
   DEST: 'dist'
 };
 
+function onError(err){
+  console.log(err);
+  this.emit('end');
+}
+
 gulp.task('transform', function(){
   gulp.src(path.JS)
     .pipe(react())
+    .on('error', onError)
     .pipe(gulp.dest(path.DEST_SRC));
 });
 
 gulp.task('copy', function(){
   gulp.src(path.HTML)
-    .pipe(gulp.dest(path.DEST));
+    .pipe(gulp.dest(path.DEST))
+    .on('error', onError);
 });
 
 gulp.task('watch', function(){
