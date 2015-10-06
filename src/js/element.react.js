@@ -75,3 +75,5 @@ var Element = React.createClass({
     );
   }
 });
+
+module.exports=Element;

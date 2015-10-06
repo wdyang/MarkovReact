@@ -14,7 +14,8 @@ var streamify = require('gulp-streamify');
 var path = {
   HTML: 'src/index.html',
   ALL: ['src/js/*.js', 'src/js/**/*.js', 'src/index.html'],
-  JS: ['src/js/*.js', 'src/js/**/*.js'],
+  JS: ['src/js/!(app)*.js', 'src/js/**/*.js', 'src/js/app.js'],
+  CONCAT_OUT: 'build.js',
   MINIFIED_OUT: 'build.min.js',
   OUT: 'build.js',
   ENTRY_POINT: './src/js/app.js',
@@ -45,7 +46,7 @@ gulp.task('watch', function(){
 	gulp.watch(path.ALL, ['transform', 'copy']);
 });
 
-gulp.task('watch-browserify', function() {
+gulp.task('watch-b', function() {
   gulp.watch(path.HTML, ['copy']);
 
   var watcher  = watchify(browserify({
@@ -70,18 +71,31 @@ gulp.task('build', function(){
   gulp.src(path.JS)
     .pipe(react())
     .pipe(concat(path.MINIFIED_OUT))
-    .pipe(uglify( { file:path.MINIFIED_OUT } ) )
+    .pipe(uglify(path.MINIFIED_OUT))
     .pipe(gulp.dest(path.DEST_BUILD));
+});
+
+gulp.task('build-b', function(){
+  return watchify(browserify({
+    entries: [path.ENTRY_POINT],
+    transform: [reactify],
+    debug: true,
+    cache: {}, packageCache: {}, fullPaths: true
+  }))
+  .bundle()
+  .pipe(source(path.OUT))
+  .pipe(gulp.dest(path.DEST_SRC));
+
 });
 
 gulp.task('replaceHTML', function(){
   gulp.src(path.HTML)
     .pipe(htmlreplace({
-      'js': 'build/' + path.MINIFIED_OUT
+      'js': 'build/'+path.MINIFIED_OUT
     }))
-    .pipe(gulp.dest(path.DEST));
-});
+    .pipe(gulp.dest(path.DEST))
+})
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['watch-b']);
 
 gulp.task('production', ['replaceHTML', 'build']);

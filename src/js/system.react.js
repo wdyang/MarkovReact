@@ -1,6 +1,9 @@
 "use strict";
 
+// var Element = require('./element.react');
+
 // var redux=require('redux');
+// var a=1;
 
 var CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -28,7 +31,7 @@ var System = React.createClass({
     console.log("orderedIntro, update to:", update.syncTo);
     update.running = false;
     this.setState({elementState: update});
-    setTimeout(()=>{
+    setTimeout(function(){
       if(states.length>0)
         self.orderedIntro(states, step);
     }, step*1000);
@@ -42,7 +45,7 @@ var System = React.createClass({
     console.log("group Markov, update to:", update.syncTo);
     update.running = false;
     this.setState({elementState: update});
-    setTimeout(()=>{
+    setTimeout(function(){
       if(numIteration>0)
         self.groupMarkov(numIteration, step);
     }, step*1000);
@@ -60,7 +63,7 @@ var System = React.createClass({
     console.log("individual Markov ", totalDuration, step);
     update.running = false;
     this.setState({elementState: update});
-    setTimeout(()=>{
+    setTimeout(function(){
       if(totalDuration>0)
         self.individualMarkov(totalDuration, nextStep, speedUp, deltaStep);
     }, step*1000);
@@ -102,7 +105,7 @@ var System = React.createClass({
     }
 
     if(actionDuration > 0)
-      setTimeout(()=>{
+      setTimeout(function(){
         if(actions.length>0)
           self.playActions(actions);
       }, actionDuration * 1000);
@@ -119,7 +122,7 @@ var System = React.createClass({
     console.log(e.keyCode);
     switch(e.keyCode){
       case 32: //space
-        self.playActions(Actions);
+        self.playActions(_.clone(Actions, true));
       break;
       default:
     }
@@ -144,3 +147,5 @@ var System = React.createClass({
     );
   }
 });
+
+module.exports = System;

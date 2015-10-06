@@ -15,7 +15,7 @@ var Matrix = [
 
 var getNextMarkovState=function(mat, current){
 	var probabilities = mat[current];
-	var steps = _.reduce(probabilities,(res, ele)=>{
+	var steps = _.reduce(probabilities,function(res, ele){
 		var acc = res.length > 0 ? _.last(res) + ele : ele;
 		return res.concat(acc);
 	}, []);
