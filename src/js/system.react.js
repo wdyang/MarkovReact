@@ -49,9 +49,10 @@ var System = React.createClass({
   },
   individualMarkov:function(totalDuration, step, speedUp, deltaStep){
     //sec, sec, bollen
+    var nextStep = step;
     totalDuration -= step;
     if(speedUp)
-      step = step > 1 ? step - deltaStep : step      
+      nextStep = step > 1 ? step - deltaStep : step      
 
     var self = this;
     var update = this.state.elementState;
@@ -61,7 +62,7 @@ var System = React.createClass({
     this.setState({elementState: update});
     setTimeout(()=>{
       if(totalDuration>0)
-        self.individualMarkov(totalDuration, step, speedUp, deltaStep);
+        self.individualMarkov(totalDuration, nextStep, speedUp, deltaStep);
     }, step*1000);
   },
   stopElements: function(){
