@@ -1,5 +1,7 @@
 "use strict";
 
+var CSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 var Element = React.createClass({
   getInitialState: function() {
     return {
@@ -76,4 +78,4 @@ var Element = React.createClass({
   }
 });
 
-module.exports=Element;
+// module.exports=Element;

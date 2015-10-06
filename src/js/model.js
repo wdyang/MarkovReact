@@ -35,7 +35,7 @@ var Actions=[
 	{
 		action: "orderedIntro",
 		states: [0,1,2,3],
-		step: 0.3
+		step: 1
 	},
 	{
 		action: "groupMarkov",

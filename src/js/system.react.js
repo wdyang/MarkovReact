@@ -3,9 +3,10 @@
 // var Element = require('./element.react');
 
 // var redux=require('redux');
-// var a=1;
+// window.redux = redux;
 
-var CSSTransitionGroup = React.addons.CSSTransitionGroup;
+// import { createStore } from 'redux';
+// var a=1;
 
 var System = React.createClass({
   getInitialState: function() {
