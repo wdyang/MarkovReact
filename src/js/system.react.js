@@ -12,6 +12,7 @@ var System = React.createClass({
   getInitialState: function() {
     return {
       numElement : NumDancer,
+      numShowing: 0,
       initials: DancerInitials,
       intervals : 1,
       action: "sync", //stop
@@ -24,11 +25,16 @@ var System = React.createClass({
     };
   },
 
-  orderedIntro:function(states, step){
+  orderedIntro:function(states, step, random){
     var self = this;
     var update = this.state.elementState;
     update.syncState = true;
-    update.syncTo = states.shift();
+    if(random){
+      var idx = Math.floor(Math.random()*states.length);
+      update.syncTo = states.splice(idx, 1);
+    }else{
+      update.syncTo = states.shift();
+    }
     console.log("orderedIntro, update to:", update.syncTo);
     update.running = false;
     this.setState({elementState: update});
@@ -56,7 +62,7 @@ var System = React.createClass({
     var nextStep = step;
     totalDuration -= step;
     if(speedUp)
-      nextStep = step > 1 ? step - deltaStep : step      
+      nextStep = step > deltaStep ? step - deltaStep : step      
 
     var self = this;
     var update = this.state.elementState;
@@ -86,7 +92,7 @@ var System = React.createClass({
 
     switch(action.action){
       case "orderedIntro":
-        this.orderedIntro(action.states, action.step);
+        this.orderedIntro(action.states, action.step, action.random);
         actionDuration = action.states.length * action.step;
       break;
       case "groupMarkov":
@@ -123,7 +129,14 @@ var System = React.createClass({
     console.log(e.keyCode);
     switch(e.keyCode){
       case 32: //space
+        self.setState({numShowing: self.state.numShowing+1});
         self.playActions(_.clone(Actions, true));
+      break;
+      case 37: //left arrow, remove a user
+        self.setState({numShowing: self.state.numShowing-1});
+      break;
+      case 39: //right arrow, add a user
+        self.setState({numShowing: self.state.numShowing+1});
       break;
       default:
     }
@@ -133,12 +146,14 @@ var System = React.createClass({
     var self = this;
     var children = [];
     _.range(0, this.state.numElement).forEach(function(i){
-      children.push(<Element key={i} 
-        id={i} 
-        initial = {self.state.initials[i]}
-        action = {self.state.action}
-        state = {self.state.elementState}
-      />);
+      if(i<self.state.numShowing){
+        children.push(<Element key={i} 
+          id={i} 
+          initial = {self.state.initials[i]}
+          action = {self.state.action}
+          state = {self.state.elementState}
+        />);
+      }
     })
 
     return (
@@ -149,4 +164,4 @@ var System = React.createClass({
   }
 });
 
-module.exports = System;
+// module.exports = System;

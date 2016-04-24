@@ -63,8 +63,8 @@ var Element = React.createClass({
     // var pos = 0;
 
     var style = {
-      top: 400,
-      left: 128*2 * (1+this.props.id),
+      top: 450,
+      left: 128*2 * (1+this.props.id)-148,
       background: Colors[this.state.current]
     };
 
