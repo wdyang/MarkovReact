@@ -76,6 +76,7 @@ var System = React.createClass({
     }, step*1000);
   },
   stopElements: function(){
+    document.getElementById('container').hidden=true;
     var self = this;
     var update = this.state.elementState;
     update.syncState = true;
