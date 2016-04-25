@@ -42,3 +42,9 @@
   transition: all .25s; /* TODO: make this a move animation */
   width: 128px;
 }
+
+.dancerName {
+  position: absolute;
+  bottom: -40px;
+  left: 30%;
+}

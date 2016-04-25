@@ -124,13 +124,29 @@ var System = React.createClass({
     // this.playActions(Actions);
   },
 
+  startShow: function(){
+    var self = this;
+    this.setState({numShowing: this.state.numShowing+1});
+    this.playActions(_.clone(Actions, true));
+    setTimeout(function(){
+      self.setState({numShowing: self.state.numShowing+1});
+    }, 30000);
+    setTimeout(function(){
+      self.setState({numShowing: self.state.numShowing+1});
+    }, 40000);
+    setTimeout(function(){
+      self.setState({numShowing: self.state.numShowing+1});
+    }, 50000);
+  },
+
   onKeyDown:function(e){
     var self =this;
     console.log(e.keyCode);
     switch(e.keyCode){
       case 32: //space
-        self.setState({numShowing: self.state.numShowing+1});
-        self.playActions(_.clone(Actions, true));
+        self.startShow();
+        // self.setState({numShowing: self.state.numShowing+1});
+        // self.playActions(_.clone(Actions, true));
       break;
       case 37: //left arrow, remove a user
         self.setState({numShowing: self.state.numShowing-1});

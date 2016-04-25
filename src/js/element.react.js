@@ -65,14 +65,21 @@ var Element = React.createClass({
     var style = {
       top: 450,
       left: 128*2 * (1+this.props.id)-148,
-      background: Colors[this.state.current]
+      backgroundImage: 'url(' + BackgroundImages[this.state.current] + ')',
+      backgroundSize: '100%',
+      textAlign: 'bottom'
+      // background: Colors[this.state.current]
     };
 
     return (
       <CSSTransitionGroup
         className="animateExample"
         transitionName="example">
-        <div key={1} className = "animateItem" style = {style}>{this.props.initial}</div>
+        <div key={1} className = "animateItem" style = {style}>
+          <div className = "dancerName">
+            {this.props.initial}
+          </div>
+        </div>
       </CSSTransitionGroup>
     );
   }

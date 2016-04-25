@@ -1,17 +1,23 @@
 "use strict";
 
-var DancerInitials = ["Su", "Sh", "Er", "L", "Es", "D"];
+var DancerInitials = ["Ma", "Sh", "Em", "La"];
 var NumDancer = DancerInitials.length;
 var NumState= 4;
 // var Colors = ['red', 'white', 'blue', 'green', 'black'];
-var Colors = ["#FF892B", "#E5E5E5", "#31A125", "#30ABC4",  "#555555"];
+// var Colors = ["#FF892B", "#E5E5E5", "#31A125", "#30ABC4",  "#555555"];
+var BackgroundImages=[
+	"../images/earth.png",
+	"../images/metal.png",
+	"../images/wind.png",
+	"../images/heaven.png"
+];
 var DarkState = NumState;
 
 var Matrix = [
-	[0.2, 0.5, 0.3, 0],
-	[0, 0.2, 0.5, 0.3],
-	[0.3, 0, 0.2, 0.5],
-	[0.5, 0.3, 0, 0.2]
+	[0.1, 0.8, 0.1, 0],
+	[0, 0.1, 0.8, 0.1],
+	[0.1, 0, 0.1, 0.8],
+	[0.8, 0.1, 0, 0.1]
 ];
 
 var getNextMarkovState=function(mat, current){
@@ -37,15 +43,15 @@ var Actions=[
 	{
 		action: "individualMarkov",
 		totalDuration: 60,  //Su 30, Sh 15, Er 15
-		step: 1,
-		speedUp: false,
-	},
-	{
-		action: "individualMarkov",
-		totalDuration: 60,
 		step: 5,
 		speedUp: false,
 	},
+	// {
+	// 	action: "individualMarkov",
+	// 	totalDuration: 60,
+	// 	step: 5,
+	// 	speedUp: false,
+	// },
 	{
 		action: "individualMarkov",
 		totalDuration: 60,
@@ -65,7 +71,7 @@ var Actions=[
 	// },
 	{
 		action: "orderedIntro",
-		states: [0, 2, 3, 2, 0, 3, 3, 0, 1, 1, 1, 1],
+		states: [0, 2, 3, 2, 0, 3, 3, 0, 1, 2, 1, 1],
 		step: 15,
 		random: false
 	},
