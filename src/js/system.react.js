@@ -131,15 +131,26 @@ var System = React.createClass({
     this.playActions(_.clone(Actions, true));
     setTimeout(function(){
       self.setState({numShowing: self.state.numShowing+1});
-    }, 30000);
+    }, 60000);
     setTimeout(function(){
       self.setState({numShowing: self.state.numShowing+1});
-    }, 40000);
+    }, 80000);
     setTimeout(function(){
       self.setState({numShowing: self.state.numShowing+1});
-    }, 50000);
+    }, 100000);
   },
 
+  addDancer: function(){
+    console.log(this.state.numShowing);
+    if(this.state.numShowing < NumDancer)
+      this.setState({numShowing: this.state.numShowing+1});
+  },
+
+  removeDancer:function(){
+    console.log(this.state.numShowing);
+    if(this.state.numShowing > 0)
+      this.setState({numShowing: this.state.numShowing-1});
+  },
   onKeyDown:function(e){
     var self =this;
     console.log(e.keyCode);
@@ -150,15 +161,14 @@ var System = React.createClass({
         // self.playActions(_.clone(Actions, true));
       break;
       case 37: //left arrow, remove a user
-        self.setState({numShowing: self.state.numShowing-1});
+        this.addDancer;
       break;
       case 39: //right arrow, add a user
-        self.setState({numShowing: self.state.numShowing+1});
+        this.removeDancer;
       break;
       default:
     }
   },
-
   render: function() {
     var self = this;
     var children = [];

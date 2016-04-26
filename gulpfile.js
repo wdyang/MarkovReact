@@ -30,6 +30,7 @@ function onError(err){
 }
 
 gulp.task('transform', function(){
+  console.log("transforming");
   gulp.src(path.JS)
     .pipe(react())
     .on('error', onError)
@@ -96,6 +97,6 @@ gulp.task('replaceHTML', function(){
     .pipe(gulp.dest(path.DEST))
 })
 
-gulp.task('default', ['watch-b']);
+gulp.task('default', ['watch']);
 
 gulp.task('production', ['replaceHTML', 'build']);

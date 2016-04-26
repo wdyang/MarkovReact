@@ -1,6 +1,21 @@
 "use strict";
 
-var DancerInitials = ["Ma", "Sh", "Em", "La"];
+// Auto mode: automatically populate dancers, going throug actions defined in Action
+// Manual mode: use left/right to remove/add dancers, space to change
+var Mode = "Auto";
+
+if(location.search){
+	var term = location.search.split("?")[1].toLowerCase();
+	if(term == "auto"){
+		Mode = "Auto";
+	}else if(term == "manual"){
+		Mode = "Manual";
+	}
+}
+
+console.log("Mode is ", Mode);
+
+var DancerInitials = ["Sh", "Ma", "Em", "Ke"];
 var NumDancer = DancerInitials.length;
 var NumState= 4;
 // var Colors = ['red', 'white', 'blue', 'green', 'black'];
@@ -42,7 +57,7 @@ var Model=function(){
 var Actions=[
 	{
 		action: "individualMarkov",
-		totalDuration: 60,  //Su 30, Sh 15, Er 15
+		totalDuration: 120,  //Su 30, Sh 15, Er 15
 		step: 5,
 		speedUp: false,
 	},
